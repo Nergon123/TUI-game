@@ -13,12 +13,7 @@ void *current_param = nullptr;
 
 ulong step = 0;
 
-object objects[] = {
-	{{5, 5}, 0, 0, 1000, MAGENTA "e", false, nullptr, nullptr},
-	{{-1, -1}, 0, 0, 0, WHITE "#", true, nullptr, nullptr},
-	{{25, 5}, 0, 0, 0, CYAN "T", true, message, (void *)"Sign"},
-	{{25, 10}, 1, 0, 0, RED "W", false, Death, nullptr},
-};
+
 
 int main() {
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
@@ -28,37 +23,6 @@ int main() {
 	for (;;) updateCoords(objects[0].xy.x, objects[0].xy.y);
 
 	return 0;
-}
-
-void message(void *param) {
-	//horrible TODO Divide into functions
-	if (param) {
-		int a = 0;
-		//int n = 0;
-		for (char u = 255; u != '\0'; a++) u = ((const char *)(param))[a];//if (u == '\n')n++;
-		system("clear");
-
-		printf(WHITE "\n");
-
-		for (int i = 0; i < (w.ws_col / 2 - a / 2)-1; i++) printf(" ");
-		for (int i = 0; i < a+1; i++) printf("=");
-
-		printf("\n");
-
-		for (int i = 0; i < w.ws_col / 2 - a / 2; i++) printf(" ");
-
-		printf("%s\n", (const char *)param);
-
-		for (int i = 0; i < (w.ws_col / 2 - a / 2)-1; i++) printf(" ");
-		for (int i = 0; i < a+1; i++) printf("=");
-
-		//fgetc(stdin);
-	}
-}
-
-void Death(void *a) {
-	printf("gameover");
-	exit(0);
 }
 
 int controls(char c) {
@@ -87,17 +51,11 @@ void drawE(int _x, int _y) {
 	if (sizeof(objects) == 0) return;
 	system("clear");
 
-	printf(WHITE "SCORE %d HP %d POS X%d Y%d OFFSET X%d Y%d\n ",
-		objects[0].score,
-		objects[0].hp,
-		objects[0].xy.x,
-		objects[0].xy.y,
-		_offset.x,
-		_offset.y);
+	printf(WHITE "SCORE %d HP %d POS X%d Y%d OFFSET X%d Y%d\n ", objects[0].score, objects[0].hp, objects[0].xy.x, objects[0].xy.y, _offset.x, _offset.y);
 	
 	for (int y = 0; y < w.ws_row - 2; y++) {
 		for (int x = 0; x < w.ws_col; x++) {
-			object *current = coords {x, y}.findObjectByCoords(_offset);
+			object *current = findObjectByCoords({x,y},_offset);
 
 			if (current) {
 				if (current->xy == objects[0].xy) {
@@ -122,6 +80,7 @@ void Update() {
 		}
 	}
 }
+
 void updateCoords(int &x, int &y) {
 	bool do_draw = false;
 

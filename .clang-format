@@ -1,0 +1,4 @@
+BracketAlignmentStyle: BAS_Align
+IndentWidth: 4
+ArrayInitializerAlignmentStyle: AIAS_Left
+UseTab: UT_Always
