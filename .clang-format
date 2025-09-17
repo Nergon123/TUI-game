@@ -2,3 +2,10 @@ BracketAlignmentStyle: BAS_Align
 IndentWidth: 4
 ArrayInitializerAlignmentStyle: AIAS_Left
 UseTab: UT_Always
+BreakBeforeBraces: Custom
+BraceWrapping:
+	AfterClass: false
+BraceWrapping:
+	AfterCaseLabel: false
+	
+AlignArrayOfStructures: AIAS_Left

@@ -51,7 +51,7 @@ void drawE(int _x, int _y) {
 	if (sizeof(objects) == 0) return;
 	system("clear");
 
-	printf(WHITE "SCORE %d HP %d POS X%d Y%d OFFSET X%d Y%d\n ", objects[0].score, objects[0].hp, objects[0].xy.x, objects[0].xy.y, _offset.x, _offset.y);
+	printf(WHITE "SCORE %d HP %d POS X%d Y%d OFFSET X%d Y%d\n", objects[0].score, objects[0].hp, objects[0].xy.x, objects[0].xy.y, _offset.x, _offset.y);
 	
 	for (int y = 0; y < w.ws_row - 2; y++) {
 		for (int x = 0; x < w.ws_col; x++) {
