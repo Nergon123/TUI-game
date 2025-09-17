@@ -1,4 +1,3 @@
-////////#include <stdio.h>
 #include <iostream>
 #include <sys/ioctl.h>
 #include <unistd.h>
@@ -214,23 +213,23 @@ void drawE(int _x, int _y, winsize w)
 }
 void Update()
 {
-            if (current_callback&&*current_callback)
-        {
-            (*current_callback)(current_param);
-        }
+    if (current_callback && *current_callback)
+    {
+        (*current_callback)(current_param);
+    }
     step++;
     std::vector<object *> _objects = findObjectsByType(1);
     for (object *obj : _objects)
     {
         if (obj->type == 1)
         {
-            if(step %2 ==0)
-            if (getDistance(obj->xy, objects[0].xy)<10)
-            {
-                coords dir = getDirection(obj->xy, objects[0].xy);
-                obj->xy.x += dir.x;
-                obj->xy.y += dir.y;
-            };
+            if (step % 2 == 0)
+                if (getDistance(obj->xy, objects[0].xy) < 10)
+                {
+                    coords dir = getDirection(obj->xy, objects[0].xy);
+                    obj->xy.x += dir.x;
+                    obj->xy.y += dir.y;
+                };
         }
     }
 }
