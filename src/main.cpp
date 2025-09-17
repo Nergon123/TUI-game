@@ -23,7 +23,7 @@
 
 #define _GROUND GREEN "#"
 #define _food RED "*"
-
+winsize w;
 struct coords
 {
     int x, y;
@@ -61,12 +61,45 @@ ulong step = 0;
 
 void message(void *param)
 {
+
+    //horrible TODO Divide into functions
     if (param)
     {
+        int a = 0;
+        int n = 0;
+        for (char u = 255; u != '\0'; a++)
+        {
+            u = ((const char *)(param))[a];
+            if (u == '\n')
+            {
+                n++;
+            }
+        }
         system("clear");
-        printf("=====\n");
-        printf("%s\n", (const char *)param);
-        printf("=====\n");
+        printf(WHITE "\n");
+        for (int i = 0; i < (w.ws_col / 2 - a / 2)-1; i++)
+        {
+            printf(" ");
+        }
+        for (int i = 0; i < a+1; i++)
+        {
+            printf("=");
+        }
+        printf("\n");
+        for (int i = 0; i < w.ws_col / 2 - a / 2; i++)
+        {
+            printf(" ");
+        }
+
+            printf("%s\n", (const char *)param);
+        for (int i = 0; i < (w.ws_col / 2 - a / 2)-1; i++)
+        {
+            printf(" ");
+        }
+        for (int i = 0; i < a+1; i++)
+        {
+            printf("=");
+        }
         fgetc(stdin);
     }
 }
@@ -77,7 +110,7 @@ void Death(void *a)
 object objects[] = {
     {{5, 5}, 0, 0, 1000, MAGENTA "e", false, nullptr, nullptr},
     {{-1, -1}, 0, 0, 0, WHITE "#", true, nullptr, nullptr},
-    {{25, 5}, 0, 0, 0, CYAN "T", true, message, (void *)"hello world"},
+    {{25, 5}, 0, 0, 0, CYAN "T", true, message, (void *)"Sign"},
     {{25, 10}, 1, 0, 0, RED "W", false, Death, nullptr},
 };
 
@@ -213,10 +246,7 @@ void drawE(int _x, int _y, winsize w)
 }
 void Update()
 {
-    if (current_callback && *current_callback)
-    {
-        (*current_callback)(current_param);
-    }
+
     step++;
     std::vector<object *> _objects = findObjectsByType(1);
     for (object *obj : _objects)
@@ -299,13 +329,16 @@ void updateCoords(int &x, int &y, winsize &w)
         Update();
         updateWinsize(w);
         drawE(x, y, w);
+        if (current_callback && *current_callback)
+        {
+            (*current_callback)(current_param);
+        }
     }
 }
 
 int main()
 {
 
-    winsize w;
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
     int x = 0;
     int y = 0;
