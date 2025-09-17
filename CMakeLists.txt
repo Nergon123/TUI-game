@@ -1,0 +1,29 @@
+cmake_minimum_required(VERSION 3.13)
+
+project(TUIgame VERSION 1.0 LANGUAGES CXX)
+
+add_compile_options(-Wall)
+
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+
+file(
+	GLOB_RECURSE GAME_SOURCES 
+	# "${CMAKE_SOURCE_DIR}/src/object.cpp"
+	# "${CMAKE_SOURCE_DIR}/src/coords.cpp"
+	# "${CMAKE_SOURCE_DIR}/src/main.cpp"
+	"${CMAKE_SOURCE_DIR}/src/*.cpp"
+)
+
+add_executable(game ${GAME_SOURCES})
+add_custom_target(run
+    COMMAND game
+    DEPENDS game
+    WORKING_DIRECTORY ${CMAKE_PROJECT_DIR}
+)

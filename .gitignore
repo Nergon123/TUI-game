@@ -1,2 +1,12 @@
-*.out
-.vscode
+# vscode things
+**/.vscode
+
+# binaries
+**/*.out
+**/bin
+
+# cmake things
+**/CMakeFiles
+**/*Cache.txt
+**/*.cmake
+**/Makefile
