@@ -17,10 +17,7 @@ very WIP
 "a" + enter: left\
 "d" + enter: right
 
---no idea how to listen to keys without key "enter".
-
 ## build and run
-builds only on linux...
 ```shell
 cmake CMakeLists.txt && make run
 ```
